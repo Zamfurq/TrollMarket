@@ -1,0 +1,43 @@
+﻿@model AdminRegisterViewModel
+
+@{
+    ViewData["Title"] = "Admin";
+}
+@section breadcrumbs{
+    <span>Admin</span>
+}
+
+<form method="post" class="upsert-form">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <label asp-for="Username">Username*</label>
+                </td>
+                <td>
+                    <input asp-for="Username" type="text" />
+                    <span asp-validation-for="Username"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Password">Password*</label>
+                </td>
+                <td>
+                    <input asp-for="Password" type="password" />
+                    <span asp-validation-for="Password"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="ConfirmPassword">Confirm Password</label>
+                </td>
+                <td>
+                    <input asp-for="ConfirmPassword" type="password" />
+                    <span asp-validation-for="ConfirmPassword"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="blue-button" type="submit">Add New Admin</button>
+</form>

@@ -1,0 +1,32 @@
+[data-role="Seller"] div .history,
+[data-role="Seller"] div .admin,
+[data-role="Seller"] div .shipment,
+[data-role="Seller"] div .shop,
+[data-role="Seller"] div .cart {
+    display: none;
+}
+
+[data-role="Buyer"] div .history,
+[data-role="Buyer"] div .admin,
+[data-role="Buyer"] div .shipment,
+[data-role="Buyer"] div .merchandise{
+    display: none;
+}
+[data-role="Admin"] div .profile,
+[data-role="Admin"] div .shop,
+[data-role="Admin"] div .merchandise,
+[data-role="Admin"] div .cart {
+    display: none;
+}
+
+table.user-detail, button.user-detail {
+    display: none;
+}
+
+.button-disabled {
+    cursor: not-allowed;
+    background: #636e72;
+    color: black;
+    opacity: 0.4;
+    pointer-events: none;
+}

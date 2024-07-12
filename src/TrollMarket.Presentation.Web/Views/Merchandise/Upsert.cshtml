@@ -1,0 +1,81 @@
+﻿@model MerchViewModel;
+@using System.Security.Claims;
+
+@{
+    if(Model == null)
+    {
+        ViewData["Title"] = "Add Product";
+    } else
+    {
+        ViewData["Title"] = "Edit Product";
+    }
+    string username = @User.Claims.Where(c => c.Type == "username").Select(c => c.Value).SingleOrDefault();
+}
+@section breadcrumbs{
+    @if(Model == null)
+    {
+        <span>Merchandise > Add Product</span>
+    } else
+    {
+        <span>Merchandise > Edit Product</span>
+    }
+}
+
+<form method="post" class="upsert-form">
+    <input asp-for="SellerName" type="hidden" value="@username"/>
+    <input asp-for="MerchandiseId" type="hidden" />
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <label asp-for="ProductName">Product Name*</label>
+                </td>
+                <td>
+                    <input asp-for="ProductName" type="text" />
+                    <span asp-validation-for="ProductName"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Category">Category*</label>
+                </td>
+                <td>
+                    <input asp-for="Category" type="text"/>
+                    <span asp-validation-for="Category"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Description">Description</label>
+                </td>
+                <td>
+                    <textarea asp-for="Description"></textarea>
+                    <span asp-validation-for="Description"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Price">Price *</label>
+                </td>
+                <td>
+                    <input type="number" asp-for="Price" />
+                    <span asp-validation-for="Price"></span>
+                </td>
+            </tr>
+            @if(Model?.IsDiscontinued == false || Model == null)
+            {
+                <tr>
+                    <td>
+                        <label asp-for="IsDiscontinued">Discontinue</label>
+                    </td>
+                    <td>
+                        <input asp-for="IsDiscontinued" type="checkbox" />
+                        <span asp-validation-for="IsDiscontinued"></span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button class="blue-button" type="submit">Submit</button>
+    <a class="blue-button" asp-action="Index">Back to Index</a>
+</form>

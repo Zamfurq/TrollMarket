@@ -1,0 +1,81 @@
+﻿@model UserRegisterViewModel
+
+@{
+    Layout = "_AccountLayout";
+    ViewData["Title"] = "Register " + @Model.Role;
+}
+
+<h1>Sign Up</h1>
+<form method="post" asp-action="Register">
+    <input type="hidden" value="@Model.Role">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <label>Username</label>
+                </td>
+                <td>
+                    <input asp-for="Username" type="text" id="username" />
+                    <span asp-validation-for="Username"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Password</label>
+                </td>
+                <td>
+                    <input asp-for="Password" type="password" id="password">
+                    <span asp-validation-for="Password"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Confirm Password</label>
+                </td>
+                <td>
+                    <input asp-for="ConfirmPassword" type="password">
+                    <span asp-validation-for="ConfirmPassword"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <a class="check-user" href="javascript:;">Get User Detail</a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <label>First Name</label>
+                </td>
+                <td>
+                    <input asp-for="FirstName" id="firstName" type="text" />
+                    <span asp-validation-for="FirstName"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Last Name</label>
+                </td>
+                <td>
+                    <input asp-for="LastName" id="lastName" type="text" />
+                    <span asp-validation-for="LastName"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Address</label>
+                </td>
+                <td>
+                    <textarea asp-for="Address" id="address"></textarea>
+                    <span asp-validation-for="Address"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit">Register</button>
+</form>
+<div class="link-container">
+    <a asp-action="">Click here to login</a>
+</div>

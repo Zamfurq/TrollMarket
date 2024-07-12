@@ -1,0 +1,93 @@
+﻿@using System.Data
+@model MerchIndexViewModel
+
+@{
+    ViewData["Title"] = "Your Merchandise";
+}
+@section breadcrumbs{
+    <span>Merchandise</span>
+}
+
+<section class="grid-container category-index">
+    <a asp-action="Insert" class="blue-button create-button">Add New Product</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Discontinue</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            @foreach (DataRow row in Model.Merchs.Rows)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Update" class="blue-button" asp-route-id="@row["MerchandiseId"]">Edit</a>
+                        <a href="javascript:;" data-id="@row["MerchandiseId"]" class="blue-button info-button">Info</a>
+                        <a asp-action="Delete" class="blue-button" asp-route-id="@row["MerchandiseId"]">Delete</a>
+                        @*@if (row["IsDiscontinued"] == false)
+                        {
+                            <a asp-action="Discontinue" class="blue-button" asp-route-id="@row["MerchandiseId"]">Discontinue</a>
+                        } else
+                        {
+                            <a asp-action="Discontinue" class="blue-button button-disabled" asp-route-id="@row["MerchandiseId"]">Discontinue</a>
+                        }*@
+                    </td>
+                    <td>@row["ProductName"]</td>
+                    <td>@row["Category"]</td>
+                    @*<td>@(row["IsDiscontinued"] == 1 ? "Yes" : "No")</td>*@
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">
+                    <div class="pagination">
+                        <div>page @Model.PageNumber of @Model.TotalPage</div>
+                        <div>
+                            @for (int p = 1; p <= Model.TotalPage; p++)
+                            {
+                                <a asp-action="Index" asp-route-page="@p">@p</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</section>
+
+<div class="modal-layer">
+    <div class="popup-dialog product-dialog">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Product Name</td>
+                    <td class="product-name"></td>
+                </tr>
+                <tr>
+                    <td>Category</td>
+                    <td class="category"></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td class="description"></td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td class="price"></td>
+                </tr>
+                <tr>
+                    <td>Discontinue</td>
+                    <td class="discontinue"></td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="javascript:;" class="blue-button close-button">
+            Close
+        </a>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+﻿@model ShipmentIndexViewModel
+
+@{
+    ViewData["Title"] = "Shipment";
+}
+@section breadcrumbs{
+    <span>Shipment</span>
+}
+
+<section class="grid-container category-index">
+
+    <a href="javascript:;" class="blue-button create-button" id="create-button">Add New Shipment</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Is Service</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            @foreach (var shipments in Model.Shipments)
+            {
+                <tr>
+                    <td>
+                        <a href="javascript:;" data-id="@shipments.ShipmentId" class="blue-button update-button">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@shipments.ShipmentId" class="blue-button">Delete</a>
+                        @if(shipments.IsService == true)
+                        {
+                            <a asp-action="StopService" asp-route-id="@shipments.ShipmentId" class="blue-button">Stop Service</a>
+                        } else
+                        {
+                            <a asp-action="StopService" asp-route-id="@shipments.ShipmentId" class="blue-button button-disabled">Stop Service</a>
+                        }
+
+                    </td>
+                    <td>@shipments.ShipperName</td>
+                    <td>@shipments.Price.ToString("C")</td>
+                    <td>@(shipments.IsService == true ? "Yes" : "No")</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">
+                    <div class="pagination">
+                        <div>page @Model.PageNumber of @Model.TotalPage</div>
+                        <div>
+                            @for (int p = 1; p <= Model.TotalPage; p++)
+                            {
+                                <a asp-action="Index" asp-route-page="@p">@p</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</section>
+
+<div class="modal-layer">
+    <div class="popup-dialog form-dialog">
+        <header>
+            <h1>Shipment Form</h1>
+        </header>
+        <form action="javascript:;">
+            <input type="hidden" class="id">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Shipment Name*</td>
+                        <td>
+                            <input type="text" class="shipmentName">
+                            <div class="validation-message" data-for="shipperName"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Price *</td>
+                        <td>
+                            <input type="number" class="price">
+                            <div class="validation-message" data-for="price"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="isServiceLabel">Is Service*</td>
+                        <td>
+                            <input type="checkbox" checked="checked" class="isService">
+                            <div class="validation-message" data-for="isService"></div>
+                        </td>
+                    </tr> 
+                </tbody>
+            </table>
+            <button type="submit" class="blue-button">Submit</button>
+            <a href="javascript:;" class="blue-button close-button">
+                Close
+            </a>
+        </form>
+    </div>
+</div>

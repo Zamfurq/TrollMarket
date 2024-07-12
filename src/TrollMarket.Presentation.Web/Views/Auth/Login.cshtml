@@ -1,0 +1,28 @@
+﻿@model UserLoginViewModel
+
+@{
+    Layout = "_AccountLayout";
+    ViewData["Title"] = "Login";
+}
+
+<h1>Sign In</h1>
+<form method="post" action="Login">
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="fail-container">
+            <span>@ViewBag.ErrorMessage</span>
+        </div>
+    }
+    <input type="text" asp-action="UserName" name="username" placeholder="username" autocomplete="off">
+    <input type="password" asp-action="Password" name="password" placeholder="password">
+    <select asp-for="Role" asp-items="Model.Roles">
+        <option value="">Please Select Role</option>
+    </select>
+    <span asp-validation-for="Role"></span>
+    <button type="submit">sign in</button>
+</form>
+<div class="link-container">
+    <a asp-action="Register" asp-route-role="Seller">Register as Seller</a>
+    <a asp-action="Register" asp-route-role="Buyer">Register as Buyer</a>
+</div>
+

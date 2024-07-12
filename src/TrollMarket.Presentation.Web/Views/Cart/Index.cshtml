@@ -1,0 +1,66 @@
+﻿@model CartindexViewModel
+
+@{
+    ViewData["Title"] = "My Cart";
+    decimal? totalPrice = 0;
+}
+@section breadcrumbs{
+    <span>My Cart</span>
+}
+
+<section class="grid-container category-index">
+
+    <a href="javascript:;" class="blue-button create-button" id="purchase-button">Purchase All</a>
+
+    <table id="cartTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Shipment</th>
+                <th>Seller</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cart in Model.Carts)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Delete" asp-route-merchId="@cart.MerchaniseId" class="blue-button delete-button">Delete</a>
+                    </td>
+                    <td>@cart.Merchandise?.ProductName</td>
+                    <td>@cart.Quantity</td>
+                    <td>@cart.Shipment?.ShipperName</td>
+                    <td>@cart.SellerName</td>
+                    @{
+                    totalPrice = (cart.Quantity * cart.Merchandise?.Price) + cart.Shipment?.Price;
+                    }
+                        <td>@totalPrice?.ToString("C")</td>
+                    <input type="hidden" name="productId" value="@cart.MerchaniseId" />
+                    <input type="hidden" name="quantity" value="@cart.Quantity" />
+                    <input type="hidden" name="shipmentId" value="@cart.ShipmentId" />
+                    <input type="hidden" name="sellerName" value="@cart.SellerName" />
+                    <input type="hidden" name="buyerName" value="@cart.BuyerName" />
+                </tr>
+
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">
+                    <div class="pagination">
+                        <div>page @Model.PageNumber of @Model.TotalPage</div>
+                        <div>
+                            @for (int p = 1; p <= Model.TotalPage; p++)
+                            {
+                                <a asp-action="Index" asp-route-page="@p">@p</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</section>

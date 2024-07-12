@@ -1,0 +1,98 @@
+﻿@model ProfileDetailViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+    decimal totalPrice = 0;
+}
+@section breadcrumbs{
+    <span>Profile</span>
+}
+
+<div class="grid-container">
+    <div class="header-info">
+        <div>
+            Name: <span> @Model.Profile.FirstName @Model.Profile.LastName</span>
+        </div>
+        <div>
+            Role: <span>@Model.Profile.Role</span>
+        </div>
+        <div>
+            Address: <span>@Model.Profile.Address</span>
+        </div>
+        <div>
+            Balance: <span>@Model.Profile.Balance.ToString("C")</span>
+        </div>
+        @if (Model.Profile.Role == "Buyer")
+        {
+            <a href="javascript:;" class="blue-button balance-button">Add Balance</a>
+        }
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Shipment</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            @foreach (var transaction in Model.TransactionIndex.Transactions)
+            {
+                <tr>
+                    <td>@transaction.TransactionDate.ToString("dd/MM/yyyy")</td>
+                    <td>@transaction.Merchandise?.ProductName</td>
+                    <td>@transaction.Quantity</td>
+                    <td>@transaction.Shipment?.ShipperName</td>
+                    @if(Model.Profile.Role == "Buyer")
+                    {
+                        {
+                            totalPrice = (transaction.Quantity * transaction.Price) + transaction.ShipmentPrice;
+                        }
+                        <td>@totalPrice.ToString("C")</td>
+                    } else
+                    {
+                        {
+                            totalPrice = transaction.Quantity * transaction.Price;
+                        }
+                        <td>@totalPrice.ToString("C")</td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">
+                    <div class="pagination">
+                        <div>page @Model.TransactionIndex.PageNumber of @Model.TransactionIndex.TotalPage</div>
+                        <div>
+                            @for (int p = 1; p <= Model.TransactionIndex.TotalPage; p++)
+                            {
+                                <a asp-action="Index" asp-route-page="@p">@p</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="modal-layer">
+    <div class="popup-dialog balance-dialog">
+        <header>
+            <h1>Add Balance For:</h1>
+        </header>
+        <form action="javascript:;">
+            <input type="number" class="balance">
+            <div class="validation-message" data-for="balance"></div>
+            <button type="submit" class="blue-button submit-balance" data-username="@Model.Profile.Username">Submit</button>
+            <a href="javascript:;" class="blue-button close-button">
+                Close
+            </a>
+        </form>
+    </div>
+</div>
+

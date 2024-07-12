@@ -1,0 +1,48 @@
+﻿@using System.Security.Claims;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <partial name="_Head" />
+</head>
+<body class="main-body">
+    <header>
+        <div class="user-wrapper">
+            <div>
+                <h1>TROLL MARKET</h1>
+            </div>
+            <div class="user-section">
+                <div class="user">
+                    <span>Welcome, @User.Claims.Where(c => c.Type == "username").Select(c => c.Value).SingleOrDefault()</span>
+                    <span class="role">@User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).SingleOrDefault()</span>
+                </div>
+                <div class="sign-out">
+                    <form asp-controller="Auth" asp-action="Logout" method="post">
+                        <button type="submit">
+                            Sign Out
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <nav>
+            <partial name="_Navigation" />
+        </nav>
+        <div class="bread-crumbs">
+            @RenderSection("breadcrumbs",true)
+        </div>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer>
+        <div>
+            &copy; 2023 - Troll Market
+        </div>
+    </footer>
+
+</body>
+</html>
+

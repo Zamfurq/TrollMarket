@@ -1,0 +1,71 @@
+﻿@model TransactionIndexViewModel
+
+@{
+    ViewData["Title"] = "History";
+    decimal totalPrice = 0;
+}
+@section breadcrumbs{
+    <span>History</span>
+}
+
+<section class="grid-container category-index">
+
+    
+    <form method="get" asp-action="Index" class="filter">
+        <p>Search by</p>
+        <label asp-for="SellerName">Seller</label>
+        <select asp-for="SellerName" asp-items="Model.Usernames">
+            <option value="">Please Select Username</option>
+        </select>
+        <label asp-for="BuyerName">Buyer</label>
+        <select asp-for="BuyerName" asp-items="Model.Usernames">
+            <option value="">Please Select Username</option>
+        </select>
+
+        <button class="blue-button">Search</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Seller</th>
+                <th>Buyer</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Shipment</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            @foreach (var transaction in Model.Transactions)
+            {
+                <tr>
+                    <td>@transaction.TransactionDate.ToString("dd/MM/yyyy")</td>
+                    <td>@transaction.SellerName</td>
+                    <td>@transaction.BuyerName</td>
+                    <td>@transaction.Merchandise?.ProductName</td>
+                    <td>@transaction.Quantity</td>
+                    <td>@transaction.Shipment?.ShipperName</td>
+                    @{totalPrice = (transaction.Quantity * transaction.Price) + transaction.ShipmentPrice;}
+                    <td>@totalPrice.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">
+                    <div class="pagination">
+                        <div>page @Model.PageNumber of @Model.TotalPage</div>
+                        <div>
+                            @for (int p = 1; p <= Model.TotalPage; p++)
+                            {
+                                <a asp-action="Index" asp-route-page="@p" asp-route-seller="@Model.SellerName" asp-route-buyer="@Model.BuyerName">@p</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</section>

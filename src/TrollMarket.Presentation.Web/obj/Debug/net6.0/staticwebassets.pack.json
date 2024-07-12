@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\1904\\Documents\\TrollMarket\\TrollMarket\\src\\TrollMarket.Presentation.Web\\wwwroot\\css\\authorization.css",
+      "PackagePath": "staticwebassets\\css\\authorization.css"
+    },
+    {
+      "Id": "C:\\Users\\1904\\Documents\\TrollMarket\\TrollMarket\\src\\TrollMarket.Presentation.Web\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\1904\\Documents\\TrollMarket\\TrollMarket\\src\\TrollMarket.Presentation.Web\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\1904\\Documents\\TrollMarket\\TrollMarket\\src\\TrollMarket.Presentation.Web\\wwwroot\\js\\jquery-3.6.0.js",
+      "PackagePath": "staticwebassets\\js\\jquery-3.6.0.js"
+    },
+    {
+      "Id": "C:\\Users\\1904\\Documents\\TrollMarket\\TrollMarket\\src\\TrollMarket.Presentation.Web\\wwwroot\\js\\jquery-3.6.0.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery-3.6.0.min.js"
+    },
+    {
+      "Id": "C:\\Users\\1904\\Documents\\TrollMarket\\TrollMarket\\src\\TrollMarket.Presentation.Web\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.TrollMarket.Presentation.Web.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.TrollMarket.Presentation.Web.props",
+      "PackagePath": "build\\TrollMarket.Presentation.Web.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.TrollMarket.Presentation.Web.props",
+      "PackagePath": "buildMultiTargeting\\TrollMarket.Presentation.Web.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.TrollMarket.Presentation.Web.props",
+      "PackagePath": "buildTransitive\\TrollMarket.Presentation.Web.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

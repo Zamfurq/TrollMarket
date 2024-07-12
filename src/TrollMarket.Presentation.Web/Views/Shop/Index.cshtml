@@ -1,0 +1,128 @@
+﻿@model MerchIndexViewModel
+
+@{
+    ViewData["Title"] = "Shop";
+}
+@section breadcrumbs{
+    <span>Shop</span>
+}
+
+<section class="grid-container category-index">
+    
+    <form method="get" asp-action="Index" class="filter">
+        <p>Search by</p>
+        <label asp-for="Name"> Product Name</label>
+        <input asp-for="Name" type="text"/>
+        <label asp-for="Category">Category</label>
+        <input asp-for="Category" type="text"/>
+        
+        <button class="blue-button">Search</button>
+    </form>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Seller Name</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            @foreach (var merch in Model.Merch)
+            {
+                <tr>
+                    <td>
+                        <a href="javascript:;" data-id="@merch.MerchandiseId" class="blue-button cart-button">Add to Cart</a>
+                        <a href="javascript:;" data-id="@merch.MerchandiseId" class="blue-button info-button">Detail Info</a>
+                    </td>
+                    <td>@merch.ProductName</td>
+                    <td>@merch.Price.ToString("C")</td>
+                    <td>@merch.Category</td>
+                    <td>@merch.SellerName</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">
+                    <div class="pagination">
+                        <div>page @Model.PageNumber of @Model.TotalPage</div>
+                        <div>
+                            @for (int p = 1; p <= Model.TotalPage; p++)
+                            {
+                                <a asp-action="Index" asp-route-page="@p" asp-route-name="@Model.Name" asp-route-category="@Model.Category">@p</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</section>
+
+<div class="modal-layer">
+    <div class="popup-dialog product-dialog">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Product Name</td>
+                    <td class="product-name"></td>
+                </tr>
+                <tr>
+                    <td>Category</td>
+                    <td class="category"></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td class="description"></td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td class="price"></td>
+                </tr>
+                <tr>
+                    <td>Seller Name</td>
+                    <td class="seller-name"></td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="javascript:;" class="blue-button close-button">
+            Close
+        </a>
+    </div>
+    <div class="popup-dialog cart-dialog">
+        <header>
+            <h1>Add to Cart</h1>
+        </header>
+        <form action="javascript:;">
+            <input type="hidden" class="id">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Quantity*</td>
+                        <td>
+                            <input type="number" class="quantity">
+                            <div class="validation-message" data-for="quantity"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Shipment*</td>
+                        <td>
+                            <select class="shipmentList" asp-items="Model.Shipments">
+                                <option value="">Select Shipment</option>
+                            </select>
+                            <div class="validation-message" data-for="shipment"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="blue-button">Submit</button>
+            <a href="javascript:;" class="blue-button close-button">
+                Close
+            </a>
+        </form>
+    </div>
+</div>
